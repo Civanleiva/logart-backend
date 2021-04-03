@@ -1,17 +1,31 @@
-import express from 'express';
-import data from "./data.js"
+import express from "express";
+import mongoose from "mongoose";
+import data from "./data.js";
+import userRouter from "./router/userRouter.js";
 
 const app = express();
-const port = process.env.PORT || 5000;
-
-app.get('/api/products', (req, res) => {
-    res.send(data.products);
+mongoose.connect("mongodb://localhost/logart", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
 });
 
-app.get('/', (req, res) => {
-    res.send("Server is ready");
+const port = process.env.PORT || 5000;
+
+app.get("/api/products", (req, res) => {
+  res.send(data.products);
+});
+
+app.use("/api/users/", userRouter);
+
+app.get("/", (req, res) => {
+  res.send("Server is ready");
+});
+
+app.use((err, req, res, next) => {
+  res.status(500).send({ message: err.message });
 });
 
 app.listen(port, () => {
-    console.log(`Serving at http://localhost:${port}`);
+  console.log(`Serving at http://localhost:${port}`);
 });
