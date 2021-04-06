@@ -20,7 +20,7 @@ mongoose.connect("mongodb://localhost/logart", {
 
 const port = process.env.PORT || 5000;
 
-app.get("/api/products", (req, res) => {
+app.get("/products", (req, res) => {
   res.send(data.products);
 });
 
