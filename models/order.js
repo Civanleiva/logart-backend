@@ -9,6 +9,7 @@ const orderSchema = new mongoose.Schema(
         shirtMaterial: { type: String, required: true },
         shirtSize: { type: String, required: true },
         image: { type: String, required: false },
+        email: { type: String, required: true},
       },
     ],
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
